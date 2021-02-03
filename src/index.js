@@ -2,6 +2,8 @@ import { ApolloServer } from "apollo-server";
 import { typeDefs, resolvers } from "./models/schema";
 import { config } from "dotenv";
 import mongoose from "mongoose";
+
+
 const PORT = process.env.PORT || 3000;
 const { parsed } = config()
 

@@ -12,6 +12,7 @@ const server = new ApolloServer({
     resolvers
 });
 
+// Connect to MongoDB and create a GraphQL Server
 mongoose.connect(parsed.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('MongoDB connected');
@@ -20,3 +21,4 @@ mongoose.connect(parsed.MONGODB, { useNewUrlParser: true, useUnifiedTopology: tr
             .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
+// //

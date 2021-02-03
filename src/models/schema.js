@@ -1,8 +1,9 @@
 import { gql } from "apollo-server";
 
-import { PostModel } from "./Post.model";
-import { UserModel } from "./User.model";
+import { PostResolver } from "./resolvers/Post.resolver";
+import { UserResolver } from "./resolvers/User.resolver";
 
+// GQL Schema
 export const typeDefs = gql`
     type Query {
         getPosts: [Post!]!
@@ -13,17 +14,35 @@ export const typeDefs = gql`
         username: String!
         createdAt: String!
     }
+    input RegisterInput {
+        username: String!
+        email: String!
+        password: String!
+        confirmPassword: String!
+    }
+    type User {
+        id: ID!
+        email: String!
+        token: String!
+        username: String!
+        createdAt: String!
+    }
+    type Mutation {
+        register(registerInput: RegisterInput): User!
+        login(username: String!, password: String!): User!
+    }
+    
 `;
 
+// GQL Resolvers
+
+// Unite the user and post resolvers
 export const resolvers = {
     Query: {
-        getPosts: async () => {
-            try {
-                const posts = await PostModel.find();
-                return posts;
-            } catch (err) {
-                throw new Error(err);
-            }
-        }
+        ...PostResolver.Query
+    },
+    Mutation: {
+        ...UserResolver.Mutation
     }
 }
+// //

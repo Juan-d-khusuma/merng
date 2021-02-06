@@ -6,7 +6,14 @@ import { UserResolver } from "./resolvers/User.resolver";
 // GQL Schema
 export const typeDefs = gql`
     type Query {
-        getPosts: [Post!]!
+        getPosts: [Post!]
+        getPost(postID: ID!): Post
+    }
+    type Mutation {
+        register(registerInput: RegisterInput!): User!
+        login(username: String!, password: String!): User!
+        createPost(body: String!): Post!
+        deletePost(postID: ID!): String!
     }
     type Post {
         id: ID!
@@ -27,11 +34,6 @@ export const typeDefs = gql`
         username: String!
         createdAt: String!
     }
-    type Mutation {
-        register(registerInput: RegisterInput): User!
-        login(username: String!, password: String!): User!
-    }
-    
 `;
 
 // GQL Resolvers
@@ -42,7 +44,8 @@ export const resolvers = {
         ...PostResolver.Query
     },
     Mutation: {
-        ...UserResolver.Mutation
+        ...UserResolver.Mutation,
+        ...PostResolver.Mutation
     }
 }
 // //

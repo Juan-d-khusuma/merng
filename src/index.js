@@ -4,12 +4,13 @@ import { config } from "dotenv";
 import mongoose from "mongoose";
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 const { parsed } = config()
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => { return {req}}
 });
 
 // Connect to MongoDB and create a GraphQL Server

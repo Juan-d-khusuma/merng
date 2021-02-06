@@ -8,7 +8,6 @@ export const checkAuth = (context) => {
     const authHeader = context.req?.headers.authorization || '';
     if (authHeader) {
         const token = authHeader.split('Bearer ')[1];
-        console.log(token);
         if (token) {
             try {
                 console.log(parsed.SECRET_KEY);

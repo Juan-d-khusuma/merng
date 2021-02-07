@@ -28,12 +28,15 @@ export const PostResolver = {
     },
     Mutation: {
         async createPost(_, { body }, context) {
+            if (body.trim() === '') {
+                throw new UserInputError('Post body must not be empty' ,{error: "Post body must not be empty"})
+            }
             const user = checkAuth(context);
             const newPost = new PostModel({
                 body,
                 user: user.indexOf,
                 username: user.username,
-                createdAt: new Date().toISOString,
+                createdAt: new Date().toISOString(),
             });
             const post = await newPost.save();
             context.pubSub.publish('NEW_POST', { newPost: post });

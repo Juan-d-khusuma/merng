@@ -37,6 +37,8 @@ export const typeDefs = gql`
         createdAt: String!
         comments: [Comment]!
         likes: [Like]!
+        likeCount: Int!
+        commentCount: Int!
     }
     input RegisterInput {
         username: String!
@@ -60,6 +62,10 @@ export const typeDefs = gql`
 
 // Unite the user and post resolvers
 export const resolvers = {
+    Post: {
+        likeCount: (parent) => parent.likes.length,
+        commentCount: (parent) => parent.comments.length
+    },
     Query: {
         ...PostResolver.Query
     },

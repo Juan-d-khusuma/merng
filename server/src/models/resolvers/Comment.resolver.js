@@ -1,5 +1,4 @@
 import { PostModel } from "../../models/Post.model";
-import { UserModel } from "../../models/User.model";
 import { checkAuth } from "../util/checkAuth";
 import { UserInputError, AuthenticationError } from "apollo-server";
 

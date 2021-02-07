@@ -10,7 +10,6 @@ export const checkAuth = (context) => {
         const token = authHeader.split('Bearer ')[1];
         if (token) {
             try {
-                console.log(parsed.SECRET_KEY);
                 const user = jwt.verify(token, parsed.SECRET_KEY);
                 return user
             } catch (err) {

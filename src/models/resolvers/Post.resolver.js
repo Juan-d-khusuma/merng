@@ -36,6 +36,7 @@ export const PostResolver = {
                 createdAt: new Date().toISOString,
             });
             const post = await newPost.save();
+            context.pubSub.publish('NEW_POST', { newPost: post });
             return post;
         },
         async deletePost(_, { postID }, context) {
@@ -72,6 +73,11 @@ export const PostResolver = {
             } else {
                 throw new UserInputError("Post not found");
             }
+        }
+    },
+    Subscription: {
+        newPost: {
+            subscribe: (_, __, { req, pubSub }) => pubSub.asyncIterator('NEW_POST')
         }
     }
 }

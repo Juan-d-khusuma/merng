@@ -51,6 +51,9 @@ export const typeDefs = gql`
         username: String!
         createdAt: String!
     }
+    type Subscription {
+        newPost: Post!
+    }
 `;
 
 // GQL Resolvers
@@ -64,6 +67,9 @@ export const resolvers = {
         ...UserResolver.Mutation,
         ...PostResolver.Mutation,
         ...CommentResolver.Mutation,
+    },
+    Subscription: {
+        ...PostResolver.Subscription
     }
 }
 // //

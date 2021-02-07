@@ -1,16 +1,17 @@
-import { ApolloServer } from "apollo-server";
+import { ApolloServer, PubSub } from "apollo-server";
 import { typeDefs, resolvers } from "./models/schema";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 
 
 const PORT = process.env.PORT || 8000;
-const { parsed } = config()
+const { parsed } = config();
+const pubSub = new PubSub();
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => { return {req}}
+    context: ({ req }) => { return {req, pubSub} }
 });
 
 // Connect to MongoDB and create a GraphQL Server
